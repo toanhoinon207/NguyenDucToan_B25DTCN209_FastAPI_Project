@@ -1,6 +1,7 @@
 .env
 __pycache__/
+*.py[cod]
 run_all_tests.py
 TEST_CASES_REPORT.csv
 test_results.json
-*.py[cod]
+uploads/
