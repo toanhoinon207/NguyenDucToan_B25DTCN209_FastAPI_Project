@@ -13,7 +13,7 @@ async def upload_file(db, work_item_id, user_id, file: UploadFile):
     if not work_item:
         raise HTTPException(
             status_code = status.HTTP_404_NOT_FOUND,
-            detailn = "Không tìm thấy hạng mục"
+            detail = "Không tìm thấy hạng mục"
         )
 
     site = db.query(ConstructionSite).filter(ConstructionSite.id == work_item.site_id, ConstructionSite.is_deleted == False).first()
@@ -36,7 +36,7 @@ async def upload_file(db, work_item_id, user_id, file: UploadFile):
             status_code = status.HTTP_400_BAD_REQUEST,
             detail = "File không hợp lệ"
         )
-    os.makedirs("uploads", exist_ok=True)
+    os.makedirs("uploads", exist_ok = True)
     filename = f"{uuid.uuid4()}{ext}"
     path = os.path.join("uploads", filename)
     size = 0
