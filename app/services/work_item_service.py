@@ -165,6 +165,24 @@ def update_work_item_status(db: Session, work_item_id: int, user_id: int, status
             detail = "Bạn không thuộc công trình này"
         )
 
+    if work_item.status == "TODO":
+        if status_value != "IN_PROGRESS":
+            raise HTTPException(
+                status_code = status.HTTP_400_BAD_REQUEST,
+                detail = "Trạng thái chỉ được cập nhật theo thứ tự TODO - IN_PROGRESS - DONE"
+            )
+    elif work_item.status == "IN_PROGRESS":
+        if status_value != "DONE":
+            raise HTTPException(
+                status_code = status.HTTP_400_BAD_REQUEST,
+                detail = "Trạng thái chỉ được cập nhật theo thứ tự TODO - IN_PROGRESS - DONE"
+            )
+    elif work_item.status == "DONE":
+        raise HTTPException(
+            status_code = status.HTTP_400_BAD_REQUEST,
+            detail = "Hạng mục đã hoàn thành, không thể cập nhật trạng thái"
+        )
+
     work_item.status = status_value
     db.commit()
     db.refresh(work_item)

@@ -1,4 +1,3 @@
-from datetime import datetime
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 from app.schemas.site import ConstructionSiteCreate, SiteMemberCreate
@@ -24,7 +23,7 @@ def create_construction_site(db: Session, site_data: ConstructionSiteCreate, own
 
     create_activity_log(
         db = db,
-        user_id=owner_id,
+        user_id = owner_id,
         action = "CREATE_SITE",
         site_id = site.id,
         description = f"Tạo công trình '{site.name}'"
